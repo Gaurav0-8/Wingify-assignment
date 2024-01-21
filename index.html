@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trying...</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <div class="upper"></div>
+    <div class="template-shadow-container">
+      <div class="template-shadow"></div>
+    </div>
+    <div class="main">
+      <div class="left">
+        <h1><b>Sample Heading</b></h1>
+        <ul>
+          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+        </ul>
+      </div>
+      <div class="right">
+        <h1>Create a Account</h1>
+        <form id="myForm" action="" method="" onsubmit="return validateForm()">
+          <div class="input-box">
+            <label for="email">Enter Your Email</label>
+            <input type="email" name="email" required />
+            <div id="emailError" class="error-message"></div>
+          </div>
+          <div class="input-box">
+            <label for="birth">Date of Birth (Optional)</label>
+            <div class="birth">
+              <div class="date">
+                <label for="date" class="seclabel">Date</label>
+                <input type="number" name="date" id="date" min="1" max="31" />
+              </div>
+              <div class="month">
+                <label for="month" class="seclabel">Month</label>
+                <select name="month">
+                  <option value="Jan">Jan</option>
+                  <option value="Feb">Feb</option>
+                  <option value="March">March</option>
+                  <option value="April">April</option>
+                  <option value="May">May</option>
+                  <option value="June">June</option>
+                  <option value="July">July</option>
+                  <option value="August">August</option>
+                  <option value="September">September</option>
+                  <option value="October">October</option>
+                  <option value="November">November</option>
+                  <option value="December">December</option>
+                </select>
+              </div>
+              <div class="year">
+                <label for="year" class="seclabel">Year</label>
+                <select name="year">
+                  <option value="1990">1990</option>
+                  <option value="1991">1991</option>
+                  <option value="1992">1992</option>
+                  <option value="1993">1993</option>
+                  <option value="1994">1994</option>
+                  <option value="1995">1995</option>
+                  <option value="1996">1996</option>
+                  <option value="1997">1997</option>
+                  <option value="1998">1998</option>
+                  <option value="1999">1999</option>
+                  <option value="2000">2000</option>
+                  <option value="2001">2001</option>
+                  <option value="2002">2002</option>
+                  <option value="2003">2003</option>
+                  <option value="2004">2004</option>
+                  <option value="2005">2005</option>
+                  <option value="2006">2006</option>
+                  <option value="2007">2007</option>
+                  <option value="2008">2008</option>
+                  <option value="2009">2009</option>
+                  <option value="2010">2010</option>
+                </select>
+              </div>
+            </div>
+            <div id="dateError" class="error-message"></div>
+          </div>
+          <div class="input-box">
+            <label for="passord">Choose a Strong Password</label>
+            <input type="password" name="password" required />
+            <div id="passwordError" class="error-message"></div>
+          </div>
+          <div class="input-box">
+            <label for="radio">Are you an agency or individual?</label><br />
+            <input type="radio" name="radio" /> <span>Individual</span>
+            <input type="radio" name="radio" /> <span>Agency</span>
+          </div>
+
+          <div class="input-box">
+            <button type="submit" onclick="validateForm()" name="Submit">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function validateForm() {
+        // Reset error messages
+        document.getElementById("emailError").innerHTML = "";
+        document.getElementById("dateError").innerHTML = "";
+        document.getElementById("passwordError").innerHTML = "";
+
+        // Validate Email
+        var email = document.forms["myForm"]["email"].value;
+        if (!validateEmail(email)) {
+          document.getElementById("emailError").innerHTML =
+            "Invalid email address";
+          return false;
+        }
+
+        // Validate Date
+        var date = parseInt(document.forms["myForm"]["date"].value);
+        var month = document.forms["myForm"]["month"].value;
+        if (month === "Feb" && (date < 1 || date > 28)) {
+          document.getElementById("dateError").innerHTML =
+            "Invalid date for February";
+          return false;
+        } else if (
+          date < 1 ||
+          date > 31 ||
+          ((month === "April" ||
+            month === "June" ||
+            month === "Sept" ||
+            month === "Nov") &&
+            date > 30)
+        ) {
+          document.getElementById("dateError").innerHTML = "Invalid date";
+          return false;
+        }
+
+        // Validate Password (numeric value)
+        var password = document.forms["myForm"]["password"].value;
+        if (!validateNumericPassword(password)) {
+          document.getElementById("passwordError").innerHTML =
+            "Password must contain only numeric values";
+          return false;
+        }
+
+        return true;
+      }
+
+      function validateEmail(email) {
+        // Simple email validation regex
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+
+      function validateNumericPassword(password) {
+        // Check if the password contains only numeric values
+        return /^\d+$/.test(password);
+      }
+    </script>
+  </body>
+</html>
